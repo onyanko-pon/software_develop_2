@@ -4,8 +4,9 @@ import { useRouter } from 'next/router'
 import CourseList from '../components/CourseList'
 import TeacherList from '../components/TeacherList'
 import { useEffect } from 'react';
-import SubjectForm from '../components/SubjectForm';
 import SubjectList from '../components/SubjectList';
+import KomasuList from '../components/KomasuList';
+import Box from '@mui/material/Box'
 
 const Courses = (props) => {
   const router = useRouter()
@@ -18,30 +19,19 @@ const Courses = (props) => {
 
   return <>
 
+    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
     {props.courseList.map(course => {
-      return <div key={course.id}>
+      return <div style={{ width: '210px'}} key={course.id}>
         <p>クラス名:{course.name}</p>
         <SubjectList subjectList={course.subjects ?? []} teacherList={props.teacherList} />
       </div>
     })}
+    </Box>
 
     <p>クラス</p>
     <CourseList />
     <p>コマ数</p>
-    {
-      props.courseList.map(course => {
-        return <div key={course.id}>
-          <p>クラス名: {course.name}</p>
-          <p>
-            月曜: {course.komasuList[0]},
-            火曜: {course.komasuList[1]},
-            水曜: {course.komasuList[2]},
-            木曜: {course.komasuList[3]},
-            金曜: {course.komasuList[4]}
-          </p>
-        </div>
-      })
-    }
+    <KomasuList />
 
     <p>先生</p>
     <TeacherList />
@@ -72,6 +62,7 @@ const handlePreMove = async (courses) => {
 Courses.getInitialProps = async () => {
   const res = await fetch('http://localhost:3000/api/session')
   const { teachers, courses } = await res.json()
+  console.log({ teachers, courses })
   return {
     initTeachers: teachers,
     initCourses: courses
