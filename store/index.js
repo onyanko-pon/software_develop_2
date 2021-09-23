@@ -6,6 +6,7 @@ const initialState = {
   courseList: [],
   teacherList: [],
   title: "時間割自動生成",
+  topTitle: "",
 }
 
 export const actionTypes = {
@@ -19,6 +20,8 @@ export const actionTypes = {
   SET_TEACHERS: 'SET_TEACHERS',
 
   UPDATE_TITLE: 'UPDATE_TITLE',
+
+  UPDATE_TOP_TITLE: 'UPDATE_TOP_TITLE'
 }
 
 export const reducer = (state = initialState, action) => {
@@ -71,6 +74,12 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         title: action.data.title
+      }
+
+    case actionTypes.UPDATE_TOP_TITLE:
+      return {
+        ...state,
+        topTitle: action.data.topTitle
       }
 
     default:

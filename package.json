@@ -6,7 +6,7 @@
     "dev": "nodemon server",
     "dev:style": "NODE_ENV=DEVELOPMENT_STYLE nodemon server",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node server",
     "lint": "next lint"
   },
   "dependencies": {

@@ -6,10 +6,14 @@ import TeacherList from '../components/TeacherList'
 import { useEffect } from 'react';
 import SubjectForm from '../components/SubjectForm';
 import SubjectList from '../components/SubjectList';
+import KomasuList from '../components/KomasuList'
+
+import { Button, Box } from '@mui/material'
 
 const Courses = (props) => {
   const router = useRouter()
   props.setTitle("教科入力 | 時間割自動生成")
+  props.setPageTitle("コマ数設定")
 
   useEffect(async () => {
     props.setCourses(props.initCourses)
@@ -18,41 +22,32 @@ const Courses = (props) => {
 
   return <>
 
+    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
     {props.courseList.map(course => {
       return <div key={course.id}>
         <p>クラス名:{course.name}</p>
-        教科入力
         <SubjectForm course={course} />
         <SubjectList subjectList={course.subjects ?? []} teacherList={props.teacherList} />
       </div>
     })}
+    </Box>
 
     <p>クラス</p>
     <CourseList />
     <p>コマ数</p>
-    {
-      props.courseList.map(course => {
-        return <div key={course.id}>
-          <p>クラス名: {course.name}</p>
-          <p>
-            月曜: {course.komasuList[0]},
-            火曜: {course.komasuList[1]},
-            水曜: {course.komasuList[2]},
-            木曜: {course.komasuList[3]},
-            金曜: {course.komasuList[4]}
-          </p>
-        </div>
-      })
-    }
+    <KomasuList />
 
     <p>先生</p>
     <TeacherList />
 
-    <button onClick={async () => {
+    <Button
+      sx={{ mt: '15px', mb: '15px' }}
+      variant="contained"
+      onClick={async () => {
       if (await handlePreMove(props.courseList)) {
         router.push("/confirm")
       }
-    }}>次へ</button>
+      }}>次へ</Button>
   </>
 }
 
@@ -90,8 +85,8 @@ const mapDispatchToProps = (dispatch) => {
     setTitle: (title) => dispatch({ type: 'UPDATE_TITLE', data: { title } }),
     setCourses: (courses) => dispatch({ type: 'SET_COURSES', data: { courses } }),
     setTeachers: (teachers) => dispatch({ type: 'SET_TEACHERS', data: { teachers } }),
+    setPageTitle: (topTitle) => dispatch({ type: 'UPDATE_TOP_TITLE', data: { topTitle } })
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Courses)

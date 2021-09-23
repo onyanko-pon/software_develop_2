@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { connect } from 'react-redux';
+import Box from '@mui/material/Box'
 
 const KomasuForm = (props) => {
   const courseId = props.courseId
@@ -11,73 +12,83 @@ const KomasuForm = (props) => {
     props.updateCourse(courseId, { ...course, komasuList})
   }, [komasuList])
 
-  return <div>
-    <p>月曜</p>
-    <select value={komasuList[0]} onChange={(e) => {
-      console.log(e.target.value)
-      const newKomasuList = [...komasuList]
-      newKomasuList[0] = e.target.value
-      setKomasuList(newKomasuList)
-    }}>
-      {
-        [1, 2, 3, 4, 5, 6, 7].map(id => {
-          return <option key={id} value={id}>{ id }限</option>
-        })
-      }
-    </select>
+  return <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+    <>
+      <p>月曜</p>
+      <select value={komasuList[0]} onChange={(e) => {
+        console.log(e.target.value)
+        const newKomasuList = [...komasuList]
+        newKomasuList[0] = e.target.value
+        setKomasuList(newKomasuList)
+      }}>
+        {
+          [1, 2, 3, 4, 5, 6, 7].map(id => {
+            return <option key={id} value={id}>{ id }限</option>
+          })
+        }
+      </select>
+    </>
 
-    <p>火曜</p>
-    <select value={komasuList[1]} onChange={(e) => {
-      const newKomasuList = [...komasuList]
-      newKomasuList[1] = e.target.value
-      setKomasuList(newKomasuList)
-    }}>
-      {
-        [1, 2, 3, 4, 5, 6, 7].map(id => {
-          return <option key={id} value={id}>{id}限</option>
-        })
-      }
-    </select>
+    <>
+      <p>火曜</p>
+      <select value={komasuList[1]} onChange={(e) => {
+        const newKomasuList = [...komasuList]
+        newKomasuList[1] = e.target.value
+        setKomasuList(newKomasuList)
+      }}>
+        {
+          [1, 2, 3, 4, 5, 6, 7].map(id => {
+            return <option key={id} value={id}>{id}限</option>
+          })
+        }
+      </select>
+    </>
 
-    <p>水曜</p>
-    <select value={komasuList[2]} onChange={(e) => {
-      const newKomasuList = [...komasuList]
-      newKomasuList[2] = e.target.value
-      setKomasuList(newKomasuList)
-    }}>
-      {
-        [1, 2, 3, 4, 5, 6, 7].map(id => {
-          return <option key={id} value={id}>{id}限</option>
-        })
-      }
-    </select>
+    <>
+      <p>水曜</p>
+      <select value={komasuList[2]} onChange={(e) => {
+        const newKomasuList = [...komasuList]
+        newKomasuList[2] = e.target.value
+        setKomasuList(newKomasuList)
+      }}>
+        {
+          [1, 2, 3, 4, 5, 6, 7].map(id => {
+            return <option key={id} value={id}>{id}限</option>
+          })
+        }
+      </select>
+    </>
 
-    <p>木曜</p>
-    <select value={komasuList[3]} onChange={(e) => {
-      const newKomasuList = [...komasuList]
-      newKomasuList[3] = e.target.value
-      setKomasuList(newKomasuList)
-    }}>
-      {
-        [1, 2, 3, 4, 5, 6, 7].map(id => {
-          return <option key={id} value={id}>{id}限</option>
-        })
-      }
-    </select>
+    <>
+      <p>木曜</p>
+      <select value={komasuList[3]} onChange={(e) => {
+        const newKomasuList = [...komasuList]
+        newKomasuList[3] = e.target.value
+        setKomasuList(newKomasuList)
+      }}>
+        {
+          [1, 2, 3, 4, 5, 6, 7].map(id => {
+            return <option key={id} value={id}>{id}限</option>
+          })
+        }
+      </select>
+    </>
 
-    <p>金曜</p>
-    <select value={komasuList[4]} onChange={(e) => {
-      const newKomasuList = [...komasuList]
-      newKomasuList[4] = Number(e.target.value)
-      setKomasuList(newKomasuList)
-    }}>
-      {
-        [1, 2, 3, 4, 5, 6, 7].map(id => {
-          return <option key={id} value={id}>{id}限</option>
-        })
-      }
-    </select>
-  </div>
+    <>
+      <p>金曜</p>
+      <select value={komasuList[4]} onChange={(e) => {
+        const newKomasuList = [...komasuList]
+        newKomasuList[4] = Number(e.target.value)
+        setKomasuList(newKomasuList)
+      }}>
+        {
+          [1, 2, 3, 4, 5, 6, 7].map(id => {
+            return <option key={id} value={id}>{id}限</option>
+          })
+        }
+      </select>
+    </>
+  </Box>
 }
 
 const mapDispatchToProps = (dispatch) => {

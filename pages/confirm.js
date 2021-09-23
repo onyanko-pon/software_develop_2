@@ -6,7 +6,7 @@ import TeacherList from '../components/TeacherList'
 import { useEffect } from 'react';
 import SubjectList from '../components/SubjectList';
 import KomasuList from '../components/KomasuList';
-import Box from '@mui/material/Box'
+import { Box, Button } from '@mui/material'
 
 const Courses = (props) => {
   const router = useRouter()
@@ -36,11 +36,14 @@ const Courses = (props) => {
     <p>先生</p>
     <TeacherList />
 
-    <button onClick={async () => {
+    <Button
+      sx={{ mt: '15px', mb: '15px' }}
+      variant="contained"
+      onClick={async () => {
       if (await handlePreMove(props.courseList)) {
-        router.push("/confirm")
+        router.push("/result")
       }
-    }}>次へ</button>
+      }}>次へ</Button>
   </>
 }
 

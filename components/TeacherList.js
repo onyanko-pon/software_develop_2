@@ -1,23 +1,26 @@
-import { connect } from 'react-redux';
-
+import { connect } from 'react-redux'
+import { List, ListItem, ListItemText, Box, Button } from '@mui/material'
 
 const TeacherList = (props) => {
-  return <>
-    {
-      props.teacherList.length
-    }人
-    <ul>
+  return <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <List>
       {
-        props.teacherList.map((teacher) =>
-          <li key={teacher.id}>
-            {teacher.id}
-            {teacher.name}
-            <input style={{ marginLeft: "10px" }} type="button" onClick={() => props.deleteTeacher(teacher.id)} value={"削除"} />
-          </li>
+        props.teacherList.map((teacher, i) =>
+          <ListItem key={i}>
+            <ListItemText
+              primary={teacher.name}
+              secondary={""}
+            />
+            {
+              props.deletable ?
+              <Button variant="outlined" onClick={() => props.deleteTeacher(teacher.id)}>削除</Button> :
+              null
+            }
+          </ListItem>
         )
       }
-    </ul>
-  </>
+    </List>
+  </Box>
 }
 
 const mapDispatchToProps = (dispatch) => {

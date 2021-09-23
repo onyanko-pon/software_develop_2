@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-// import { useRouter } from 'next/router'
 import Router from 'next/router'
+import {Button} from '@mui/material'
 
 import TeacherForm from '../components/TeacherForm'
 import TeacherList from "../components/TeacherList"
@@ -8,25 +8,28 @@ import CourseForm from '../components/CourseForm';
 import CourseList from '../components/CourseList';
 
 const Home = (props) => {
-  // const router = useRouter()
 
-  props.updateTitle("先生登録 | 時間割自動生成")
+  props.updateTitle("先生とクラス登録 | 時間割自動生成")
+  props.updatePageTitle("先生とクラスの入力")
 
   return <>
     <p>先生</p>
     <TeacherForm />
-    <TeacherList />
+    <TeacherList deletable={true} />
 
     <p>クラス</p>
     <CourseForm />
-    <CourseList />
+    <CourseList deletable={true} />
 
-    <button onClick={async () => {
+    <Button
+      sx={{ mt: '15px', mb: '15px'}}
+      variant="contained"
+      onClick={async () => {
       const res = await handlePreMove(props.teacherList, props.courseList)
       if (res) {
         Router.push("/komasu")
       }
-    }}>次へ</button>
+    }}>次へ</Button>
   </>
 }
 
@@ -64,7 +67,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteTeacher: (deleteTeacherId) => dispatch({ type: 'DELETE_TEACHER', data: { deleteTeacherId } }),
-    updateTitle: (title) => dispatch({ type: 'UPDATE_TITLE', data: { title } })
+    updateTitle: (title) => dispatch({ type: 'UPDATE_TITLE', data: { title } }),
+    updatePageTitle: (topTitle) => dispatch({ type: 'UPDATE_TOP_TITLE', data: { topTitle } })
   }
 }
 
